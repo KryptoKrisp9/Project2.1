@@ -1,0 +1,18 @@
+<li>
+    <h1>Fruits show page</h1>
+    The <%=fruit.name; %> is  <%=fruit.color; %>.
+    <% if(fruit.readyToEat === true){ %>
+        It is ready to eat
+    <% } else { %>
+        It is not ready to eat
+    <% } %>
+        <!--  ADD DELETE FORM HERE-->
+    <form action="/fruits/<%=fruit.id %>?_method=DELETE" method="POST">
+        <input type="submit" value="DELETE"/>
+    </form>
+....
+
+router.delete('/:id', (req, res)=>{
+    res.send('deleting...')
+})
+
