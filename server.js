@@ -30,7 +30,7 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema)
 
 // Middleware for parsing JSON request bodies
-app.use(bodyParser.json())
+
 
 app.get('/', (req, res) => {
    res.send('Hello!')
