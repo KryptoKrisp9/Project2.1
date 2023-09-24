@@ -4,6 +4,8 @@ const express = require('express')
 //const methodOverride = require('method-override')
 const app = express()
 
+//app.set("view engine, "ejs")
+
 
 
 require('dotenv').config()
@@ -27,6 +29,11 @@ db.on('disconnected', () => { console.log('mongo disconnected')})
 app.get('/', (req, res) => {
    res.send('Ho world!')
 })
+
+//catch all routes
+app.get("*", function(req, res) {
+    res.send("<h1>Invalid Page</h1>")
+}) 
 
 
 
