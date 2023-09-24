@@ -1,7 +1,10 @@
 
 // IMPORTS
 const express = require('express')
+//const methodOverride = require('method-override')
 const app = express()
+
+
 
 require('dotenv').config()
 
@@ -20,8 +23,9 @@ db.on('error', (err) => { console.log('ERROR: ' , err)})
 db.on('connected', () => { console.log('mongo connected')})
 db.on('disconnected', () => { console.log('mongo disconnected')})
 
+//Express Route
 app.get('/', (req, res) => {
-   res.send('Hello world!')
+   res.send('Ho world!')
 })
 
 
