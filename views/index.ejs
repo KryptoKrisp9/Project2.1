@@ -1,18 +1,27 @@
-<html>
-<head>
-    <title> ToDo App </title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100"     rel="stylesheet">
-    <link href="/styles.css" rel="stylesheet">
-  </head>
-<body>
-  <div class="container">
-<h2> A Simple ToDo List App </h2>
-<form action ="/addtask" method="POST">
-       <input type="text" name="newtask" placeholder="add new task">        <button> Add Task </button>
-<h2> Added Task </h2>
-<button formaction="/removetask" type="submit"> Remove </button>
-</form>
-<h2> Completed task </h2>
+<%- include("./partials/header")  %>
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="/">Todo App</a>
+</nav>
+
+<div class="container mt-5">
+    <form action="/add/todo" method="POST" class="d-flex">
+        <input type="text" name="todo" class="form-control" placeholder="Enter Todo">
+        <input type="submit" value="Add Todo" class="btn btn-md btn-primary mx-2">
+    </form>
+
+
+    <ul class="list-group my-5">
+        <% todo.forEach(todos => { %>
+        <li class="list-group-item"><%= todos.todo %> <a href="/delete/todo/<%= todos._id %>"
+                class="btn btn-danger btn-sm">Delete</a></li>
+
+        <% }) %>
+
+    </ul>
 </div>
-</body>
-</html>
+
+
+
+
+
+<%- include("./partials/footer")  %>
