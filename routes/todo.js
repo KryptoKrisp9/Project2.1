@@ -17,7 +17,7 @@ router
       .catch((err) => console.log(err));
   })
 
-  .get("/delete/todo/:_id", (req, res) => {
+  .delete("/delete/todo/:_id", (req, res) => {
     const { _id } = req.params;
     Todo.deleteOne({ _id })
       .then(() => {
@@ -26,5 +26,4 @@ router
       })
       .catch((err) => console.log(err));
   });
-
 module.exports = router;
