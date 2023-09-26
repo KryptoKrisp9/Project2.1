@@ -2,28 +2,33 @@ const router = require("express").Router();
 const Todo = require("../models/Todo");
 
 // routes
-router
-  .post("/add/todo", (req, res) => {
+router.post("/add/todo", (req, res) => {
     const { todo } = req.body;
     const newTodo = new Todo({ todo });
 
     // save the todo
     newTodo
-      .save()
-      .then(() => {
-        console.log("Successfully added todo!");
-        res.redirect("/");
-      })
-      .catch((err) => console.log(err));
-  })
+        .save()
+        .then(() => {
+            console.log("Successfully added todo!");
+            res.redirect("/");
+        })
+        .catch((err) => console.log(err));
+});
 
-  .delete("/delete/todo/:_id", (req, res) => {
+router.delete("/delete/todo/:_id", (req, res) => {
     const { _id } = req.params;
     Todo.deleteOne({ _id })
-      .then(() => {
-        console.log("Deleted Todo Successfully!");
-        res.redirect("/");
-      })
-      .catch((err) => console.log(err));
-  });
+        .then(() => {
+            console.log("Deleted Todo Successfully!");
+            // send a JSON response indicating success
+            res.json({ success: true });
+        })
+        .catch((err) => {
+            console.log(err);
+            // send a JSON response indicating failure
+            res.json({ success: false });
+        });
+});
+
 module.exports = router;
