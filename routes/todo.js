@@ -31,4 +31,18 @@ router.delete("/delete/todo/:_id", (req, res) => {
         });
 });
 
+router.patch("/edit/todo/:_id", (req, res) => {
+  const { _id } = req.params;
+  const { todo } = req.body;
+  Todo.findByIdAndUpdate(_id, { todo }, { new: true })
+      .then((updatedTodo) => {
+          console.log("Successfully updated todo!");
+          res.json({ success: true, todo: updatedTodo });
+      })
+      .catch((err) => {
+          console.log(err);
+          res.json({ success: false });
+      });
+});
+
 module.exports = router;

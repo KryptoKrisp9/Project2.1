@@ -13,16 +13,12 @@
     <ul class="list-group my-5">
         <% todo.forEach(todos => { %>
         <li class="list-group-item"><%= todos.todo %> 
-            <!-- Change the link to a button and add an onclick handler to call deleteTodo function with todo._id -->
             <button onclick="deleteTodo('<%= todos._id %>')" class="btn btn-danger btn-sm">Delete</button>
+            <button onclick="editTodo('<%= todos._id %>')" class="btn btn-warning btn-sm">Edit</button> <!-- Edit Button -->
         </li>
-
         <% }) %>
-
     </ul>
 </div>
-
-
 
 <script>
     function deleteTodo(todoId) {
@@ -32,12 +28,31 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // If delete was successful, reload the page to update the todo list
             if (data.success) {
                 location.reload();
             }
         });
     }
+
+    function editTodo(todoId) {
+        const newTodo = prompt('Enter the new text for the task:');
+        if (newTodo) {
+            fetch('/edit/todo/' + todoId, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ todo: newTodo }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('Task updated successfully!');
+                    location.reload();
+                } else {
+                    console.log('Failed to update task.');
+                }
+            });
+        }
+    }
 </script>
 
-<%- include("./partials/footer")  %>
+<%- include("./partials/footer") %>
