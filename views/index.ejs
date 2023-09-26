@@ -12,9 +12,12 @@
 
     <ul class="list-group my-5">
         <% todo.forEach(todos => { %>
-        <li class="list-group-item"><%= todos.todo %> 
+        <li class="list-group-item">
+            <!-- Checkbox for marking as complete -->
+            <input type="checkbox" onclick="toggleComplete('<%= todos._id %>')" <%= todos.completed ? 'checked' : '' %> > 
+            <%= todos.todo %> 
             <button onclick="deleteTodo('<%= todos._id %>')" class="btn btn-danger btn-sm">Delete</button>
-            <button onclick="editTodo('<%= todos._id %>')" class="btn btn-warning btn-sm">Edit</button> <!-- Edit Button -->
+            <button onclick="editTodo('<%= todos._id %>')" class="btn btn-warning btn-sm">Edit</button>
         </li>
         <% }) %>
     </ul>
@@ -52,6 +55,17 @@
                 }
             });
         }
+    }
+
+    function toggleComplete(todoId) {
+        fetch('/toggleComplete/todo/' + todoId, {
+            method: 'PATCH',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            location.reload();
+        });
     }
 </script>
 
