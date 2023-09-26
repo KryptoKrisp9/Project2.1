@@ -55,15 +55,14 @@ const express = require('express')
 const app = express()
 const todoRouter = require('./routes/todo')
 
-// conenction to mongodb
-// mongoose.connect("mongodb://localhost/todo_express", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+
 
 
 require('dotenv').config()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001; // Use the provided port or default to 3000
+app.listen(PORT, () => {
+    console.log(`Server is listening on PORT: ${PORT}`);
+});
 
 // setup database 
 const mongoURI = process.env.MONGO_URI
