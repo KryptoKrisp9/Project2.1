@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+// In index.js or another file
+const todo = require('../models/Todo.js');
+
 
 const TodoSchema = new mongoose.Schema({
   todo: {
