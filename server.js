@@ -60,7 +60,7 @@ db.on('error', (err) => { console.log('ERROR: ' , err)})
 db.on('connected', () => { console.log('mongo connected')})
 db.on('disconnected', () => { console.log('mongo disconnected')})
 app.get('/', (req, res) => {
-   res.redirect('/models/ToDo.js')
+   res.redirect('/')
 })
 app.listen(PORT, () => {
     console.log(`Server is listening on PORT: ${PORT}`)
