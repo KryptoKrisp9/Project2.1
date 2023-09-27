@@ -14,6 +14,7 @@ const mongoURI = process.env.MONGO_URI
 mongoose.connect(mongoURI)
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 

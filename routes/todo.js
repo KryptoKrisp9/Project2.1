@@ -22,7 +22,7 @@ const Todo = require("../models/Todo");
     Todo.deleteOne({ _id })
         .then(() => {
             console.log("Deleted Todo Successfully!");
-            // send a JSON response indicating success
+           
             res.json({ success: true });
         })
         .catch((err) => {
@@ -32,19 +32,59 @@ const Todo = require("../models/Todo");
         });
 });
 
-router.patch("/edit/todo/:_id", (req, res) => {
+router.put("/edit/todo/:_id", async (req, res) => {
     const { _id } = req.params;
     const { todo } = req.body;
-    Todo.findByIdAndUpdate(_id, { todo }, { new: true })
-        .then((updatedTodo) => {
-            console.log("Successfully updated todo!");
-            res.json({ success: true, todo: updatedTodo });
+    
+    try {
+        const updatedTodo = await Todo.findByIdAndUpdate(_id, { todo }, { new: true });
+        console.log("Successfully updated todo!");
+        res.json({ success: true, todo: updatedTodo });
+    } catch (err) {
+        console.log(err);
+        res.json({ success: false });
+    }
+});
+
+function editTodo(todoId) {
+    const newTodo = prompt('Enter the new text for the task:');
+    if (newTodo) {
+        fetch('/edit/todo/' + todoId, {
+            method: 'PUT', // Make sure to use PUT here
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ todo: newTodo }),
         })
-        .catch((err) => {
-            console.log(err);
-            res.json({ success: false });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Task updated successfully!');
+                location.reload();
+            } else {
+                console.log('Failed to update task.');
+            }
         });
-  });
+    }
+}
+function editTodo(todoId) {
+    const newTodo = prompt('Enter the new text for the task:');
+    if (newTodo) {
+        fetch('/edit/todo/' + todoId, {
+            method: 'PUT', // Make sure to use PUT here
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ todo: newTodo }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Task updated successfully!');
+                location.reload();
+            } else {
+                console.log('Failed to update task.');
+            }
+        });
+    }
+}
+
   
   
   

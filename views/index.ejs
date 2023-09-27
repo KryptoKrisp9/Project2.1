@@ -12,7 +12,7 @@
     <ul class="list-group my-5">
         <% todo.forEach(todos => { %>
         <li class="list-group-item">
-            <!-- Checkbox for marking as complete -->
+            
             <input type="checkbox" onclick="toggleComplete('<%= todos._id %>')" <%= todos.completed ? 'checked' : '' %> > 
             <%= todos.todo %> 
             <button onclick="deleteTodo('<%= todos._id %>')" class="btn btn-danger btn-sm">Delete</button>
@@ -35,33 +35,38 @@
         });
     }
     function editTodo(todoId) {
-        const newTodo = prompt('Enter the new text for the task:');
-        if (newTodo) {
-            fetch('/edit/todo/' + todoId, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ todo: newTodo }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Task updated successfully!');
-                    location.reload();
-                } else {
-                    console.log('Failed to update task.');
-                }
-            });
-        }
-    }
-    function toggleComplete(todoId) {
-        fetch('/toggleComplete/todo/' + todoId, {
-            method: 'PATCH',
+    const newTodo = prompt('Enter the new text for the task:');
+    if (newTodo) {
+        fetch('/edit/todo/' + todoId, {
+            method: 'PUT', // Change this to PUT
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ todo: newTodo }),
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            location.reload();
+            if (data.success) {
+                console.log('Task updated successfully!');
+                location.reload();
+            } else {
+                console.log('Failed to update task.');
+            }
         });
     }
+}
+
+        
+    
+    function toggleComplete(todoId) {
+    fetch('/toggleComplete/todo/' + todoId, {
+        method: 'PUT',  
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        location.reload();
+    });
+}
+
+    
 </script>
 <%- include("./partials/footer")  %>
