@@ -3,17 +3,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
+const methodOverride = require('method-override')
 
 require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
-
-// setup database 
-
-const mongoURI = process.env.MONGO_URI
-mongoose.connect(mongoURI)
-
-const db = mongoose.connection
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,6 +16,14 @@ app.set("view engine", "ejs");
 
 app.use(require("./routes/index"))
 app.use(require("./routes/todo.js"))
+// setup database 
+
+const mongoURI = process.env.MONGO_URI
+mongoose.connect(mongoURI)
+
+const db = mongoose.connection
+
+
 
 
 //const db = mongoose.connection
