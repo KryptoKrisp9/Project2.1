@@ -9,7 +9,6 @@
         <input type="submit" value="Add Task" class="btn btn-md btn-primary mx-2">
     </form>
 
-
     <ul class="list-group my-5">
         <% todo.forEach(todos => { %>
         <li class="list-group-item">
@@ -22,7 +21,6 @@
         <% }) %>
     </ul>
 </div>
-
 <script>
     function deleteTodo(todoId) {
         fetch('/delete/todo/' + todoId, {
@@ -36,7 +34,6 @@
             }
         });
     }
-
     function editTodo(todoId) {
         const newTodo = prompt('Enter the new text for the task:');
         if (newTodo) {
@@ -56,7 +53,6 @@
             });
         }
     }
-
     function toggleComplete(todoId) {
         fetch('/toggleComplete/todo/' + todoId, {
             method: 'PATCH',
@@ -68,5 +64,4 @@
         });
     }
 </script>
-
-<%- include("./partials/footer") %>
+<%- include("./partials/footer")  %>
