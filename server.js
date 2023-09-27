@@ -13,16 +13,18 @@ const PORT = process.env.PORT || 3000
 const mongoURI = process.env.MONGO_URI
 mongoose.connect(mongoURI)
 
+const db = mongoose.connection
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.use(require("./routes/index"))
-app.use(require("./routes/todo"))
+app.use(require("./routes/todo.js"))
 
 
-const db = mongoose.connection
+//const db = mongoose.connection
 // optional create status messages to check mongo connection 
 db.on('error', (err) => { console.log('ERROR: ' , err)})
 db.on('connected', () => { console.log('mongo connected')})
