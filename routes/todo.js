@@ -92,7 +92,7 @@
   
 
 const router = require("express").Router();
-const Todo = require("../models/Todo");
+const Todo = require("../ToDo");
 // routes
   router.post("/add/todo", (req, res) => {
     const { todo } = req.body;

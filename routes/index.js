@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const Todo = require("../models/Todo.js");
+const Todo = require("../ToDo.js");
 
 // routes will be here....
 router.get("/", async(req, res) => {
